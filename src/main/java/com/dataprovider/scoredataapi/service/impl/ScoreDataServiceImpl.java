@@ -1,11 +1,13 @@
 package com.dataprovider.scoredataapi.service.impl;
 
+import com.dataprovider.scoredataapi.model.PropertyEntity;
 import com.dataprovider.scoredataapi.model.ScoreDataEntity;
 import com.dataprovider.scoredataapi.model.dto.ScoreDataDto;
 import com.dataprovider.scoredataapi.repository.ScoreDataRepository;
 import com.dataprovider.scoredataapi.service.ScoreDataService;
-import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +29,23 @@ public class ScoreDataServiceImpl implements ScoreDataService {
   @Override
   public void saveUpdateDataFromCustomer(ScoreDataDto dto) {
     log.info("M=ScoreDataService.saveUpdateDataFromCustomer, received dto={}", dto);
-    ScoreDataEntity scoreDataEntity = ScoreDataEntity.newInstance(dto);
+    Optional<ScoreDataEntity> entityOptional = repository.findByCpf(dto.getCpf());
+    entityOptional.ifPresentOrElse(
+        entity -> updateAndSaveEntity(entity, dto),
+            () -> repository.save(ScoreDataEntity.newInstance(dto))
+    );
+  }
 
-    repository.save(scoreDataEntity);
+  private void updateAndSaveEntity(ScoreDataEntity entity, ScoreDataDto dto) {
+    Set<PropertyEntity> properties = new HashSet<>();
+    dto.getProperties().forEach(
+        propertyDto -> properties.add(PropertyEntity.newInstance(propertyDto, entity))
+    );
+
+    entity.setAddress(dto.getAddress());
+    entity.setCustomerAge(dto.getCustomerAge());
+    entity.setSourceOfIncome(dto.getSourceOfIncome());
+    entity.setProperties(properties);
+    repository.saveAndFlush(entity);
   }
 }

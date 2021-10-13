@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ScoreDataRepository extends JpaRepository<ScoreDataEntity, Integer> {
   Optional<ScoreDataEntity> findByCpf(String cpf);
-
 }
