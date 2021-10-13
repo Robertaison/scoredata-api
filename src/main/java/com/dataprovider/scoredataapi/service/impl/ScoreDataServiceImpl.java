@@ -19,13 +19,14 @@ public class ScoreDataServiceImpl implements ScoreDataService {
 
   @Override
   public ScoreDataDto getScoreDataFromCustomer(String cpf) {
+    log.info("M=ScoreDataService.getScoreDataFromCustomer, cpf={}", cpf);
     Optional<ScoreDataEntity> scoreDataEntity = repository.findByCpf(cpf);
     return scoreDataEntity.map(ScoreDataDto::newInstance).orElse(null);
   }
 
   @Override
   public void saveUpdateDataFromCustomer(ScoreDataDto dto) {
-    log.info("M=saveUpdateDataFromCustomer, received dto={}", dto);
+    log.info("M=ScoreDataService.saveUpdateDataFromCustomer, received dto={}", dto);
     ScoreDataEntity scoreDataEntity = ScoreDataEntity.newInstance(dto);
 
     repository.save(scoreDataEntity);

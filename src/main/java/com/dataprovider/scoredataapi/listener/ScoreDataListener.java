@@ -26,7 +26,6 @@ public class ScoreDataListener {
     log.info("M=scoreDataQueueListener, payload={}", payload);
     ScoreDataDto dto = converter.toObject(payload, ScoreDataDto.class);
 
-    log.info("M=scoreDataQueueListener, convertedObject={}", dto);
     service.saveUpdateDataFromCustomer(dto);
   }
 }
