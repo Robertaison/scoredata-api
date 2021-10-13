@@ -8,9 +8,9 @@ spring:
     hibernate:
       ddl-auto: create-drop
   datasource:
-    url: jdbc:mysql://localhost:3306/gateway
+    url: jdbc:mysql://localhost:3306/dataprovider
     username: root
-    password: MySql2021!
+    password: root
   rabbitmq:
     username: guest
     password: guest
