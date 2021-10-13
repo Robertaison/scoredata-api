@@ -34,12 +34,12 @@ public class ScoreDataEntity {
   private String sourceOfIncome;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "scoreData")
-  private Set<Property> properties = new HashSet<>();
+  private Set<PropertyEntity> properties = new HashSet<>();
 
   private LocalDateTime updatedAt;
 
   public static ScoreDataEntity newInstance(ScoreDataDto dto) {
-    Set<Property> properties = new HashSet<>();
+    Set<PropertyEntity> properties = new HashSet<>();
 
     ScoreDataEntity scoreData = ScoreDataEntity.builder()
         .cpf(dto.getCpf())
@@ -50,7 +50,7 @@ public class ScoreDataEntity {
         .build();
 
     dto.getProperties().forEach(
-        propertyDto -> properties.add(Property.newInstance(propertyDto, scoreData))
+        propertyDto -> properties.add(PropertyEntity.newInstance(propertyDto, scoreData))
     );
     scoreData.setProperties(properties);
     return scoreData;
