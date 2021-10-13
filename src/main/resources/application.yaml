@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: scoredata-api
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:mysql://localhost:3306/gateway
+    username: root
+    password: MySql2021!
+  rabbitmq:
+    username: guest
+    password: guest
+    port: '5672'
+    host: localhost
