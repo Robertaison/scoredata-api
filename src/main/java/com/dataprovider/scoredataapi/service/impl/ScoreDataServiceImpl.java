@@ -24,10 +24,7 @@ public class ScoreDataServiceImpl implements ScoreDataService {
   @Override
   public void saveUpdateDataFromCustomer(ScoreDataDto dto) {
     log.info("M=saveUpdateDataFromCustomer, received dto={}", dto);
-    ScoreDataEntity scoreDataEntity = ScoreDataEntity.builder()
-        .cpf(dto.getCpf())
-        .updatedAt(LocalDateTime.parse(dto.getUpdatedAt()))
-        .build();
+    ScoreDataEntity scoreDataEntity = ScoreDataEntity.newInstance(dto);
 
     repository.save(scoreDataEntity);
   }

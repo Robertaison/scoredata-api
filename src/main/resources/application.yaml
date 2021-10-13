@@ -6,7 +6,7 @@ spring:
     name: scoredata-api
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
     url: jdbc:mysql://localhost:3306/dataprovider
     username: root

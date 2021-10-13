@@ -1,7 +1,9 @@
 package com.dataprovider.scoredataapi.model;
 
+import com.dataprovider.scoredataapi.model.dto.ScoreDataDto;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,8 +33,26 @@ public class ScoreDataEntity {
   private String address;
   private String sourceOfIncome;
 
-  @OneToMany(mappedBy = "scoreData", cascade = CascadeType.ALL)
-  private List<Property> properties;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "scoreData")
+  private Set<Property> properties = new HashSet<>();
 
   private LocalDateTime updatedAt;
+
+  public static ScoreDataEntity newInstance(ScoreDataDto dto) {
+    Set<Property> properties = new HashSet<>();
+
+    ScoreDataEntity scoreData = ScoreDataEntity.builder()
+        .cpf(dto.getCpf())
+        .customerAge(dto.getCustomerAge())
+        .address(dto.getAddress())
+        .sourceOfIncome(dto.getSourceOfIncome())
+        .updatedAt(LocalDateTime.parse(dto.getUpdatedAt()))
+        .build();
+
+    dto.getProperties().forEach(
+        propertyDto -> properties.add(Property.newInstance(propertyDto, scoreData))
+    );
+    scoreData.setProperties(properties);
+    return scoreData;
+  }
 }
