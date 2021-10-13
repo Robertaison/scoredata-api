@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class ScoreDataEntity {
   private String address;
   private String sourceOfIncome;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "scoreData")
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "scoreData", fetch = FetchType.EAGER)
   private Set<PropertyEntity> properties = new HashSet<>();
 
   private LocalDateTime updatedAt;

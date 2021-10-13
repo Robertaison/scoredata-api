@@ -5,6 +5,7 @@ import com.dataprovider.scoredataapi.model.dto.ScoreDataDto;
 import com.dataprovider.scoredataapi.repository.ScoreDataRepository;
 import com.dataprovider.scoredataapi.service.ScoreDataService;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ public class ScoreDataServiceImpl implements ScoreDataService {
 
   @Override
   public ScoreDataDto getScoreDataFromCustomer(String cpf) {
-    return null;
+    Optional<ScoreDataEntity> scoreDataEntity = repository.findByCpf(cpf);
+    return scoreDataEntity.map(ScoreDataDto::newInstance).orElse(null);
   }
 
   @Override
