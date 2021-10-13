@@ -8,6 +8,7 @@ import lombok.Data;
 public class ScoreDataDto {
 
   private String cpf;
+  private String customerAge;
   private String address;
   private String sourceOfIncome;
   private List<Property> properties;

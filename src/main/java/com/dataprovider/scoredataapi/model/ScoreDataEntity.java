@@ -27,6 +27,7 @@ public class ScoreDataEntity {
   private Integer id;
 
   private String cpf;
+  private String customerAge;
   private String address;
   private String sourceOfIncome;
 
