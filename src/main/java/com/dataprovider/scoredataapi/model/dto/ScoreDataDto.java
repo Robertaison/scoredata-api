@@ -1,7 +1,6 @@
 package com.dataprovider.scoredataapi.model.dto;
 
 import com.dataprovider.scoredataapi.model.ScoreDataEntity;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Builder;
